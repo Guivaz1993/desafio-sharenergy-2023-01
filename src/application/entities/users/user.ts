@@ -10,7 +10,7 @@ export class User {
   private props: UserProps;
 
   constructor(props: UserProps, id?: string) {
-    this._id = id ?? null;
+    this._id = id ?? undefined;
     this.props = props;
   }
 
