@@ -8,5 +8,6 @@ import { UserController } from './controller/user.controller';
   imports: [DatabaseModule],
   controllers: [UserController],
   providers: [CreateUser, FindUserByUsername],
+  exports: [FindUserByUsername],
 })
 export class HttpModule {}

@@ -1,9 +1,12 @@
 import { CreateUser } from '@application/use-cases/users/create-user';
 import { FindUserByUsername } from '@application/use-cases/users/find-by-username-user';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Get } from '@nestjs/common';
 import { CreateUserBody } from '../dtos/user/create-user-body';
 import { UserViewModel } from '../view-models/user-niews-models';
-import { hash, compare } from 'bcrypt';
+import { hash } from 'bcrypt';
+import { IsPublic } from '@infra/auth/decorators/is-public.decorator';
+import { CurrentUser } from '@infra/auth/decorators/current-user.decorator';
+import { User } from '@application/entities/users/user';
 
 @Controller('user')
 export class UserController {
@@ -12,6 +15,7 @@ export class UserController {
     private findByUsername: FindUserByUsername,
   ) {}
 
+  @IsPublic()
   @Post('create')
   async create(@Body() body: CreateUserBody) {
     const { username, password } = body;
@@ -34,14 +38,8 @@ export class UserController {
     return { user: UserViewModel.toHttp(user) };
   }
 
-  @Post('login')
-  async login(@Body() body: CreateUserBody) {
-    const { username, password } = body;
-
-    const { user } = await this.findByUsername.execute({ username });
-
-    const isValidPassword = await compare(password, user.password.value);
-
-    return isValidPassword;
+  @Get('me')
+  getMe(@CurrentUser() user: User) {
+    return user;
   }
 }

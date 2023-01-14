@@ -11,7 +11,7 @@ export class PrismaUserRepository implements UserRepository {
   async create(user: User): Promise<void> {
     const raw = PrismaUserMapper.toPrisma(user);
 
-    await this.prismaService.user.create({
+    const newUser = await this.prismaService.user.create({
       data: raw,
     });
   }
