@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Address } from './address';
 
 export interface ClientProps {
@@ -8,12 +9,46 @@ export interface ClientProps {
   address: Address;
 }
 
+export interface UpdateClientRequest {
+  id: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  cpf?: string;
+  street?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  number?: string;
+  complement?: string;
+}
+
 export class Client {
   private _id: string;
   private props: ClientProps;
 
+  private validatePropsLength(prop: string): boolean {
+    return prop.trim().length >= 1;
+  }
+
   constructor(props: ClientProps, id?: string) {
-    this._id = id ?? undefined;
+    if (!this.validatePropsLength(props.name)) {
+      throw new Error("O campo 'name' não deve estar vazio");
+    }
+
+    if (!this.validatePropsLength(props.cpf)) {
+      throw new Error("O campo 'cpf' não deve estar vazio");
+    }
+
+    if (!this.validatePropsLength(props.email)) {
+      throw new Error("O campo 'email' não deve estar vazio");
+    }
+
+    if (!this.validatePropsLength(props.phone)) {
+      throw new Error("O campo 'phone' não deve estar vazio");
+    }
+
+    this._id = id ?? randomUUID();
     this.props = props;
   }
 
@@ -29,7 +64,7 @@ export class Client {
     this.props.name = name;
   }
   public get email(): string {
-    return this.email;
+    return this.props.email;
   }
 
   public set email(email: string) {

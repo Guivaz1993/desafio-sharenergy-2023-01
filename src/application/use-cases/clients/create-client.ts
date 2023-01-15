@@ -12,15 +12,23 @@ interface CreateClientRequest {
   city: string;
   state: string;
   zip: string;
-  number: string;
-  complement: string;
+  number?: string;
+  complement?: string;
+}
+
+interface CreateClientResponse {
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+  address: Address;
 }
 
 @Injectable()
 export class CreateClient {
   constructor(private clientRepository: ClientRepository) {}
 
-  async create(request: CreateClientRequest): Promise<Client> {
+  async execute(request: CreateClientRequest): Promise<CreateClientResponse> {
     const {
       name,
       email,
@@ -49,8 +57,8 @@ export class CreateClient {
       }),
     });
 
-    const newClient = await this.clientRepository.create(client);
+    await this.clientRepository.create(client);
 
-    return newClient;
+    return client;
   }
 }

@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto';
 import { Password } from './password';
 
 export interface UserProps {
@@ -10,7 +11,7 @@ export class User {
   private props: UserProps;
 
   constructor(props: UserProps, id?: string) {
-    this._id = id ?? undefined;
+    this._id = id ?? randomUUID();
     this.props = props;
   }
 

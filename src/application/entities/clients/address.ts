@@ -1,61 +1,60 @@
+export interface AddressProps {
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
+  number?: string;
+  complement?: string;
+}
+
 export class Address {
-  private street: string;
-  private city: string;
-  private state: string;
-  private zip: string;
-  private number?: string;
-  private complement?: string;
+  private props: AddressProps;
 
-  constructor({ street, city, state, zip, number, complement }) {
-    this.street = street;
-    this.city = city;
-    this.state = state;
-    this.zip = zip;
-    this.number = number;
-    this.complement = complement;
+  constructor(props: AddressProps) {
+    this.props = props;
   }
 
-  public get getStreet(): string {
-    return this.street;
+  public get street(): string {
+    return this.props.street;
   }
 
-  public set setStreet(street: string) {
-    this.street = street;
+  public set street(street: string) {
+    this.props.street = street;
   }
 
-  public get getCity(): string {
-    return this.city;
+  public get city(): string {
+    return this.props.city;
   }
 
-  public set setCity(city: string) {
-    this.city = city;
+  public set city(city: string) {
+    this.props.city = city;
   }
-  public get getState(): string {
-    return this.state;
-  }
-
-  public set setState(state: string) {
-    this.state = state;
-  }
-  public get getZip(): string {
-    return this.zip;
+  public get state(): string {
+    return this.props.state;
   }
 
-  public set setZip(zip: string) {
-    this.zip = zip;
+  public set state(state: string) {
+    this.props.state = state;
   }
-  public get getNumber(): string {
-    return this.number;
-  }
-
-  public set setNumber(number: string) {
-    this.number = number;
-  }
-  public get getComplement(): string {
-    return this.complement;
+  public get zip(): string {
+    return this.props.zip;
   }
 
-  public set setComplement(complement: string) {
-    this.complement = complement;
+  public set zip(zip: string) {
+    this.props.zip = zip;
+  }
+  public get number(): string {
+    return this.props.number;
+  }
+
+  public set number(number: string) {
+    this.props.number = number;
+  }
+  public get complement(): string {
+    return this.props.complement;
+  }
+
+  public set complement(complement: string) {
+    this.props.complement = complement;
   }
 }
