@@ -3,6 +3,9 @@ import { Routes, Outlet, Route, Navigate } from "react-router-dom";
 import { getItem } from "../utils/Storage";
 
 import Login from "../pages/Login";
+import Cats from "../pages/Cats";
+import Dogs from "../pages/Dogs";
+import Home from "../pages/Home";
 
 function ProtectedRoutes({ redirectTo }) {
   const isAuth = getItem("token");
@@ -15,10 +18,10 @@ function index() {
       <Route path="/" element={<Login />} />
 
       <Route element={<ProtectedRoutes redirectTo="/" />}>
-        {/* <Route path='/home' element={<Home />} />
-        <Route path='/cats' element={<Clients />} />
-        <Route path='/dogs' element={<ClientsDetail />} />
-        <Route path='/clients' element={<DebtCollection />} /> */}
+        <Route path='/home' element={<Home />} />
+        <Route path='/cats' element={<Cats />} />
+        <Route path='/dogs' element={<Dogs />} />
+        {/* <Route path='/clients' element={<DebtCollection />} /> */}
       </Route>
     </Routes>
   );

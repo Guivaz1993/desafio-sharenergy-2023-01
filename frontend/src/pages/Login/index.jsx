@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -21,21 +22,22 @@ import { toast } from "react-toastify";
 const theme = createTheme();
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+    rememberMe: false,
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(form.username.trim()==="" || !form.password ){
-      console.log("não é valido")
-      return toast.error("Todos os campos são obrigatórios")
+    if (form.username.trim() === "" || !form.password) {
+      return toast.error("Todos os campos são obrigatórios");
     }
-    console.log(form)
+    console.log(form);
+    navigate("/cats")
   };
-
-  const [showPassword, setShowPassword] = useState(false);
-  const [form,setForm] = useState({
-    username:"",
-    password:"",
-    rememberMe:false
-  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -44,16 +46,15 @@ export default function Login() {
   };
 
   function handleFormValue(e) {
-    if(e.target.name==="rememberMe"){
-        setForm({ ...form, [e.target.name]: e.target.checked });
-    }else{
+    if (e.target.name === "rememberMe") {
+      setForm({ ...form, [e.target.name]: e.target.checked });
+    } else {
       setForm({ ...form, [e.target.name]: e.target.value });
     }
   }
 
   return (
     <ThemeProvider theme={theme}>
-
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -86,7 +87,7 @@ export default function Login() {
               <LoginIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-             Login
+              Login
             </Typography>
             <Box
               component="form"
@@ -118,7 +119,7 @@ export default function Login() {
                 value={form.password}
                 onChange={handleFormValue}
                 InputProps={{
-                  endAdornment:
+                  endAdornment: (
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle password visibility"
@@ -129,11 +130,18 @@ export default function Login() {
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                }
-                  }
+                  ),
+                }}
               />
               <FormControlLabel
-                control={<Checkbox checked={form.rememberMe} color="primary" name="rememberMe" onChange={handleFormValue}/>}
+                control={
+                  <Checkbox
+                    checked={form.rememberMe}
+                    color="primary"
+                    name="rememberMe"
+                    onChange={handleFormValue}
+                  />
+                }
                 label="Lembrar"
               />
               <Button
