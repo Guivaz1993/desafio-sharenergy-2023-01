@@ -38,11 +38,12 @@ function Cats() {
 
   function onClick() {
     if (form === "") {
+      setText("");
       return setCode("");
     }
     if (!codes.includes(Number(form))) {
       setCode(DogImage);
-      setText("Ops! Não temos um meme de gatinho para esse código");
+      setText("Ops! Não temos um meme de gatinho para esse código, tem certeza que está correto?");
     } else {
       setText("");
       setCode(`https://http.cat/${form}`);
@@ -68,7 +69,7 @@ function Cats() {
           />
           <button onClick={onClick}>Buscar</button>
         </article>
-        {text && <h2>{text}</h2>}
+        {text && <h3 className="alertText">{text}</h3>}
         {code && <img src={code} alt={`Meme`} className="memeImg" />}
       </section>
     </div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -18,7 +18,8 @@ import IconButton from "@mui/material/IconButton";
 
 import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import { toast } from "react-toastify";
-import { setItem } from "../../utils/Storage";
+import { getItem, setItem } from "../../utils/Storage";
+import { getRoute, postRoute } from "../../service/myApi";
 
 const theme = createTheme();
 
@@ -29,7 +30,7 @@ const CustomizedInput = styled(TextField)(({ theme }) => ({
   "& label": {
     fontSize: "1.6rem",
     backgroundColor: "#fff",
-    padding: '0 0.5rem',
+    padding: "0 0.5rem",
   },
 }));
 
@@ -42,14 +43,35 @@ export default function Login() {
     rememberMe: false,
   });
 
-  const handleSubmit = (event) => {
+  getRoute();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (form.username.trim() === "" || !form.password) {
       return toast.error("Todos os campos são obrigatórios");
     }
-    console.log(form);
-    setItem("token", "token");
-    navigate("/home");
+    try {
+      const { data, ok } = await postRoute("/login", {
+        username: form.username,
+        password: form.password,
+      });
+      if (!ok) {
+        return toast.error(data);
+      }
+
+      setItem("token", data.access_token);
+      setItem("remember", form.rememberMe);
+      if (form.rememberMe) {
+        setItem("username", form.username);
+        setItem("password", form.password);
+      }
+      navigate("/home");
+    } catch (error) {
+      console.log(error);
+      return toast.error(
+        "Não foi posível conectar no momento, tente novamente em alguns minutos"
+      );
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -65,6 +87,24 @@ export default function Login() {
       setForm({ ...form, [e.target.name]: e.target.value });
     }
   }
+
+  const username = getItem("username");
+  const rememberMe = getItem("remember");
+  useEffect(() => {
+    if (rememberMe) {
+      setForm({
+        username: username,
+        password: getItem("password"),
+        rememberMe: false,
+      });
+    } else{
+      setForm({
+        username: "",
+        password: "",
+        rememberMe: false,
+      });
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

@@ -6,3 +6,18 @@
   margin: 1rem 0 3rem;
   font-size: 1.8rem;
 }
+
+.clientsContainer button {
+  border: 1px solid var(--secundary);
+  padding: 1rem;
+  margin: 0 0.6rem;
+}
+
+.clientsContainer .BtnNewClient {
+  max-width: 20rem;
+  text-align: center;
+  margin: 1.6rem 1rem;
+  background-color: var(--secundary);
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+}

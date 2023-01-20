@@ -9,18 +9,29 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { removeItem } from "../../utils/Storage";
+import { toast } from "react-toastify";
+import { getRoute } from "../../service/myApi";
+import { clearAll, getItem, removeItem } from "../../utils/Storage";
 import "./styles.css";
 
-const pages = ["Home", "Cats", "Dogs","Clients"];
+const pages = ["Home", "Cats", "Dogs", "Clients"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [username, setUsername] = useState("username");
+  const token = getItem("token");
+  const remember = getItem("remember");
   const navigate = useNavigate();
+
   const handleLogout = () => {
-    removeItem("token");
+    if(remember==="true"){
+      removeItem("token");
+    }else{
+      clearAll()
+    }
+    toast.success("Até a próxima.")
     navigate("/");
   };
 
@@ -28,12 +39,28 @@ function Header() {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (page) => {
+  const handleCloseNavMenu = (page="") => {
     setAnchorElNav(null);
     if (page) {
       navigate(`/${page.toLowerCase()}`);
     }
   };
+
+  useEffect(() => {
+    async function getName() {
+      try {
+        const {data,ok } = await getRoute("/user/me",token)
+        if(!ok){
+          toast.error(data)
+          return navigate("/")
+        }
+        return setUsername(data.username)
+      } catch (error) {
+        return toast.error;
+      }
+    }
+    getName()
+  }, [token]);
 
   return (
     <AppBar
@@ -50,7 +77,7 @@ function Header() {
             variant="h2"
             noWrap
             component="a"
-            href="/"
+            href="/home"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -88,7 +115,7 @@ function Header() {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              onClose={()=>handleCloseNavMenu()}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
@@ -142,7 +169,7 @@ function Header() {
 
           <Box sx={{ flexGrow: 0 }}>
             <section className="infoContainer">
-              <span>Nome de usuário</span>
+              <span>{username}</span>
               <button type="button" onClick={handleLogout}>
                 <LogoutIcon fontSize="large" />
               </button>

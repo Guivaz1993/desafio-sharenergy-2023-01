@@ -94,7 +94,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox" >
+        <TableCell padding="checkbox">
           <AccountCircleIcon fontSize="large" />
         </TableCell>
         {headCells.map((headCell) => (
@@ -205,7 +205,7 @@ export default function UserTable() {
   async function loadUser() {
     try {
       const { data, ok } = await getUsers();
-      if(!ok){
+      if (!ok) {
         return toast.error(data.error);
       }
       data.results.forEach((user) => {

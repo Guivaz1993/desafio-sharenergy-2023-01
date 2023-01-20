@@ -10,15 +10,15 @@ export interface ClientProps {
 
 export interface UpdateClientRequest {
   id: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-  cpf?: string;
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
   // address?: UpdateAddressRequest;
-  street?: string;
-  city?: string;
-  state?: string;
-  zip?: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
   number?: string;
   complement?: string;
 }

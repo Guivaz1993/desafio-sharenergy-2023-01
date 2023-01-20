@@ -18,3 +18,10 @@ font-size: 2rem;
   padding:1rem 2rem;
   font-size: 1.6rem;
 }
+
+.alertText{
+  align-self: center;
+  margin-bottom: 1rem;
+  color: rgba(236, 25, 25, 0.892);
+  font-size: 1.8rem;
+}
