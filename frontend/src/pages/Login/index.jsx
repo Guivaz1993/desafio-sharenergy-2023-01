@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,10 +16,22 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import { toast } from "react-toastify";
+import { setItem } from "../../utils/Storage";
 
 const theme = createTheme();
+
+const CustomizedInput = styled(TextField)(({ theme }) => ({
+  "& .MuiInputBase-input": {
+    fontSize: "1.8rem",
+  },
+  "& label": {
+    fontSize: "1.6rem",
+    backgroundColor: "#fff",
+    padding: '0 0.5rem',
+  },
+}));
 
 export default function Login() {
   const navigate = useNavigate();
@@ -36,7 +48,8 @@ export default function Login() {
       return toast.error("Todos os campos são obrigatórios");
     }
     console.log(form);
-    navigate("/cats")
+    setItem("token", "token");
+    navigate("/home");
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -95,7 +108,7 @@ export default function Login() {
               onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
-              <TextField
+              <CustomizedInput
                 margin="normal"
                 required
                 fullWidth
@@ -107,7 +120,7 @@ export default function Login() {
                 value={form.username}
                 onChange={handleFormValue}
               />
-              <TextField
+              <CustomizedInput
                 margin="normal"
                 required
                 fullWidth

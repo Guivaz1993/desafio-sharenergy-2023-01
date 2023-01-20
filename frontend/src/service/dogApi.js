@@ -1,5 +1,5 @@
 async function getDog( ) {
-  const response = await fetch(  "https://random.dog/woof.json?filter=svg" , {
+  const response = await fetch(  "https://random.dog/woof.json?include=jpg,svg,png,gif" , {
       method: "GET",
   });
   const responseData = await response.json();

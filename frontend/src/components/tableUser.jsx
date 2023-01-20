@@ -1,6 +1,10 @@
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+/* eslint-disable react-hooks/exhaustive-deps */
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { TextField } from "@mui/material";
+import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -10,14 +14,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import Avatar from "@mui/material/Avatar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { getUsers } from "../service/userApi";
 
 function createData(avatar, name, email, username, age) {
@@ -46,10 +46,6 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// Since 2020 all major browsers ensure sort stability with Array.prototype.sort().
-// stableSort() brings sort stability to non-modern browsers (notably IE11). If you
-// only support modern browsers you can replace stableSort(exampleArray, exampleComparator)
-// with exampleArray.slice().sort(exampleComparator)
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -98,8 +94,8 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <AccountCircleIcon />
+        <TableCell padding="checkbox" >
+          <AccountCircleIcon fontSize="large" />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -107,6 +103,7 @@ function EnhancedTableHead(props) {
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
+            sx={{ fontSize: "1.6rem" }}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -134,7 +131,18 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-function EnhancedTableToolbar(props) {
+const CustomizedInput = styled(TextField)(({ theme }) => ({
+  "& .MuiInputBase-input": {
+    fontSize: "1.4rem",
+  },
+  "& label": {
+    fontSize: "1.4rem",
+    backgroundColor: "#fff",
+    padding: "0 0.5rem",
+  },
+}));
+
+function EnhancedTableToolbar({ filter, handleFilter }) {
   return (
     <Toolbar
       sx={{
@@ -142,19 +150,14 @@ function EnhancedTableToolbar(props) {
         pr: { xs: 1, sm: 1 },
       }}
     >
-      <Typography
-        sx={{ flex: "1 1 100%" }}
-        variant="h6"
-        id="tableTitle"
-        component="div"
-      >
-        Nutrition
-      </Typography>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <FilterListIcon />
-        </IconButton>
-      </Tooltip>
+      <CustomizedInput
+        id="outlined-basic"
+        label="Filtro"
+        variant="outlined"
+        value={filter}
+        onChange={handleFilter}
+        placeholder="Filtre digitando aqui..."
+      />
     </Toolbar>
   );
 }
@@ -202,6 +205,9 @@ export default function UserTable() {
   async function loadUser() {
     try {
       const { data, ok } = await getUsers();
+      if(!ok){
+        return toast.error(data.error);
+      }
       data.results.forEach((user) => {
         list.push(
           createData(
@@ -230,12 +236,11 @@ export default function UserTable() {
 
   return (
     <>
-      <input type="text" value={filter} onChange={handleFilter} />
-      {rows.length !== 0 && (
-        <Box sx={{ width: "100%" }}>
-          <Paper sx={{ width: "100%", mb: 2 }}>
-            <EnhancedTableToolbar />
-            <TableContainer>
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ border: "1px solid black", margin: "2rem 5rem 1rem" }}>
+          <EnhancedTableToolbar filter={filter} handleFilter={handleFilter} />
+          {rows.length !== 0 && (
+            <TableContainer sx={{}}>
               <Table
                 sx={{ minWidth: 750 }}
                 aria-labelledby="tableTitle"
@@ -254,21 +259,32 @@ export default function UserTable() {
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
-                        <TableRow hover tabIndex={-1} key={`${row.name}+${row.username}`}>
+                        <TableRow
+                          hover
+                          tabIndex={-1}
+                          key={`${row.name}+${row.username}`}
+                        >
                           <TableCell padding="checkbox">
-                            <Avatar alt="Remy Sharp" src={row.avatar} />
+                            <Avatar alt={row.name} src={row.avatar} />
                           </TableCell>
                           <TableCell
                             component="th"
                             id={labelId}
                             scope="row"
                             padding="none"
+                            sx={{ fontSize: "1.4rem" }}
                           >
                             {row.name}
                           </TableCell>
-                          <TableCell align="left">{row.email}</TableCell>
-                          <TableCell align="left">{row.username}</TableCell>
-                          <TableCell align="right">{row.age}</TableCell>
+                          <TableCell align="left" sx={{ fontSize: "1.4rem" }}>
+                            {row.email}
+                          </TableCell>
+                          <TableCell align="left" sx={{ fontSize: "1.4rem" }}>
+                            {row.username}
+                          </TableCell>
+                          <TableCell align="right" sx={{ fontSize: "1.4rem" }}>
+                            {row.age}
+                          </TableCell>
                         </TableRow>
                       );
                     })}
@@ -284,18 +300,18 @@ export default function UserTable() {
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10,25, 50, 100]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
-        </Box>
-      )}
+          )}
+          <TablePagination
+            rowsPerPageOptions={[10, 25, 50, 100]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
     </>
   );
 }

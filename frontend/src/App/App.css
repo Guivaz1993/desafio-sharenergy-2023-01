@@ -1,6 +1,65 @@
-.memeImg{
-  max-width: 80vw;
-  max-height: 80vh;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  border: 2px solid #000000;
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-width: 100vw;
+
+  overflow-x: hidden;
+
+  --primary: #00a2a2;
+  --secundary: #6ec1e4;
+  --main-white: #f8f8f9;
+  --secundary-white: #f4f7fa;
+  --input-white: #ffffff;
+  --main-dark: #161c2d;
+
+  font-family: "roboto", "sans-serif";
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+a {
+  all: unset;
+}
+
+.memeImg {
+  max-width: 80vw;
+  margin-bottom: 2rem;
+  align-self: center;
+  border: 1px solid var(--main-dark);
+  border-radius: 8px;
+}
+
+.baseContainer {
+  display: flex;
+  flex-direction: column;
+
+  padding: 0 2rem;
 }

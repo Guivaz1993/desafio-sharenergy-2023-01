@@ -1,5 +1,5 @@
 async function getUsers( ) {
-  const response = await fetch(  "https://randomuser.me/api/?results=500" , {
+  const response = await fetch(  "https://randomuser.me/api/?results=100" , {
       method: "GET",
   });
   const responseData = await response.json();

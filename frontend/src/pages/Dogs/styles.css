@@ -1,0 +1,22 @@
+.dogContainer {
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dogContainer h2 {
+  font-size: 2.4rem;
+}
+
+.dogContainer article {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.dogContainer button {
+  width: 20rem;
+  text-align: center;
+  background-color: var(--secundary);
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+}
