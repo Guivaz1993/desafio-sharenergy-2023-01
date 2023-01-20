@@ -12,7 +12,7 @@ O link do repositório é: https://github.com/Guivaz1993/desafio-sharenergy-2023
 
 ## :books: Funcionalidades
 
-### :desktop_computer: Backend
+###  :floppy_disk: Backend
 
 #### :unlock: Rotas não autenticadas
 
@@ -36,7 +36,7 @@ O link do repositório é: https://github.com/Guivaz1993/desafio-sharenergy-2023
 
 - <b>Delete</b>: Deletar cliente
 
-### :tv: Frontend
+### :desktop_computer: Frontend
 
 - <b>Login</b>: Possibilidade de logar na página e opção de lembrar do usuário logado.
 
@@ -51,7 +51,7 @@ O link do repositório é: https://github.com/Guivaz1993/desafio-sharenergy-2023
 
 ## :wrench: Tecnologias utilizadas
 
-### :desktop_computer: Backend
+###  :floppy_disk: Backend
 
 - Typescript
 - Node.js
@@ -59,7 +59,7 @@ O link do repositório é: https://github.com/Guivaz1993/desafio-sharenergy-2023
 - Jest.js
 - MongoDB
 
-### :tv: Frontend
+### :desktop_computer: Frontend
 
 - React.JS
 - Material UI (Componentes previamente criados)
