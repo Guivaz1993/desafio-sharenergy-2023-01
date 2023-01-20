@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { styled } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { patchRoute, postRoute } from "../service/myApi";
 import { getItem } from "../utils/Storage";
@@ -49,8 +48,10 @@ export default function ClientsModal({
   async function handleSubmit() {
     try {
       if(!form.name || !form.email || !form.phone|| !form.cpf|| !form.zip|| !form.city|| !form.state|| !form.street){
-        console.log(form)
         return toast.error("Apenas número e complemento não são obrigatórios.")
+      }
+      if(!form.email.includes("@")){
+        return toast.error("Esse e-mail é inválido.")
       }
       if (currentClient.name) {
         const { data, ok } = await patchRoute(
@@ -59,14 +60,14 @@ export default function ClientsModal({
           token
         );
         if (!ok) {
-          console.log(data);
+          console.log(data.message);
           return toast.error("Não foi possível atualizar esse cliente");
         }
         toast.success("Cliente atualizado com sucesso")
       } else {
         const { data, ok } = await postRoute(`/client/create`, form, token);
         if (!ok) {
-          console.log(data);
+          console.log(data.message);
           return toast.error(data);
         }
         toast.success("Cliente criado com sucesso")
@@ -98,12 +99,11 @@ export default function ClientsModal({
   return (
     <div>
       <Dialog open={open} onClose={handleModalOpen}>
-        <DialogTitle>Subscribe</DialogTitle>
+      {isEditModal ? 
+        <DialogTitle>{currentClient.name?"Alterar cliente":"Cadastrar cliente"}</DialogTitle>
+       : <DialogTitle>Dados do Cliente</DialogTitle>
+      }
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
           <CustomizedInput
             autoFocus
             margin="dense"

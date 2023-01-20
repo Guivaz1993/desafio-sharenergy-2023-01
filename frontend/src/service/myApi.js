@@ -24,7 +24,6 @@ async function postRoute(resource, data, token) {
     },
   });
   const responseData = await response.json();
-
   return { data: responseData, ok: response.ok };
 }
 

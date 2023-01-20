@@ -40,7 +40,9 @@ export class ClientController {
   async get(@Param() params: ParamsId) {
     const { id } = params;
     const client = await this.getClient.execute(id);
-
+    if (!client) {
+      return { message: 'Cliente não encontrado' };
+    }
     return client;
   }
 
@@ -54,6 +56,11 @@ export class ClientController {
   @Patch('update/:id')
   async update(@Param() params: ParamsId, @Body() body: any) {
     const { id } = params;
+    const clientExists = await this.getClient.execute(id);
+    if (!clientExists) {
+      return { message: 'Cliente não encontrado' };
+    }
+
     const client = await this.updateClient.execute({ id: id, ...body });
 
     return client;
@@ -62,6 +69,10 @@ export class ClientController {
   @Delete('delete/:id')
   async delete(@Param() params: ParamsId) {
     const { id } = params;
+    const clientExists = await this.getClient.execute(id);
+    if (!clientExists) {
+      return { message: 'Cliente não encontrado' };
+    }
 
     const client = await this.deleteClient.execute(id);
 

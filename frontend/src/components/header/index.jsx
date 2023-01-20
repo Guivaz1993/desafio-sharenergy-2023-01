@@ -51,7 +51,7 @@ function Header() {
       try {
         const {data,ok } = await getRoute("/user/me",token)
         if(!ok){
-          toast.error(data)
+          toast.error(data.message)
           return navigate("/")
         }
         return setUsername(data.username)
@@ -60,7 +60,7 @@ function Header() {
       }
     }
     getName()
-  }, [token]);
+  }, [token,navigate]);
 
   return (
     <AppBar

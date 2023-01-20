@@ -56,7 +56,7 @@ export default function Login() {
         password: form.password,
       });
       if (!ok) {
-        return toast.error(data);
+        return toast.error(data.message);
       }
 
       setItem("token", data.access_token);
@@ -67,7 +67,7 @@ export default function Login() {
       }
       navigate("/home");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       return toast.error(
         "Não foi posível conectar no momento, tente novamente em alguns minutos"
       );
@@ -104,7 +104,7 @@ export default function Login() {
         rememberMe: false,
       });
     }
-  }, []);
+  }, [username,rememberMe]);
 
   return (
     <ThemeProvider theme={theme}>

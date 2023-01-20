@@ -206,7 +206,7 @@ export default function UserTable() {
     try {
       const { data, ok } = await getUsers();
       if (!ok) {
-        return toast.error(data.error);
+        return toast.error(data.message);
       }
       data.results.forEach((user) => {
         list.push(

@@ -30,7 +30,7 @@ function Clients() {
     try {
       const { data, ok } = await getRoute(`/client/list/${id}`, token);
       if (!ok) {
-        return toast.error(data);
+        return toast.error(data.message);
       }
       return setCurrentClient({
         id: data._id,
@@ -42,8 +42,8 @@ function Clients() {
         state: data.props.address.props.state,
         city: data.props.address.props.city,
         street: data.props.address.props.street,
-        number: data.props.address.props.number||"",
-        complement: data.props.address.props.complement||"",
+        number: data.props.address.props.number || "",
+        complement: data.props.address.props.complement || "",
       });
     } catch (error) {
       console.log(error.message);
@@ -106,8 +106,11 @@ function Clients() {
           isEditModal={isEditModal}
           currentClient={currentClient}
         />
-        <DeleteModal open={openDelete} setOpen={handleModalDelete}           currentClient={currentClient}
- />
+        <DeleteModal
+          open={openDelete}
+          handleModalDelete={handleModalDelete}
+          currentClient={currentClient}
+        />
         {/* <UserTable /> */}
       </section>
     </div>

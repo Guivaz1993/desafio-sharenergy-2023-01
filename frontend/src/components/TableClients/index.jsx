@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Paper from "@mui/material/Paper";
@@ -62,7 +63,7 @@ export default function ClientsTable({
     try {
       const { data, ok } = await getRoute("/client/list", token);
       if (!ok) {
-        return toast.error(data);
+        return toast.error(data.message);
       }
       const list = [];
       data.forEach((iten) => {
@@ -85,7 +86,7 @@ export default function ClientsTable({
 
   useEffect(() => {
     loadClients();
-  }, [open,openDelete]);
+  }, [open, openDelete]);
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>

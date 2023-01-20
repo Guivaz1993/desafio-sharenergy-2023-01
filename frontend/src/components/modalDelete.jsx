@@ -9,17 +9,17 @@ import { getItem } from "../utils/Storage";
 import { deleteRoute } from "../service/myApi";
 import { toast } from "react-toastify";
 
-export default function DeleteModal({ open, setOpen, currentClient }) {
+export default function DeleteModal({ open, handleModalDelete, currentClient }) {
   const token = getItem("token")
 
  async function handleDelete(){
   try {
     const {data,ok}=await deleteRoute( `/client/delete/${currentClient.id}`,token)
   if(!ok){
-    return toast.error(data)
+    return toast.error(data.message)
   }
   toast.success("Cliente excluído com sucesso.")
-  return setOpen()
+  return handleModalDelete("")
   } catch (error) {
     console.log(error.message)
     return toast.error("Não foi possível excluir esse cliente")
@@ -30,7 +30,7 @@ export default function DeleteModal({ open, setOpen, currentClient }) {
     <div>
       <Dialog
         open={open}
-        onClose={setOpen}
+        onClose={()=>handleModalDelete("")}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -44,7 +44,7 @@ export default function DeleteModal({ open, setOpen, currentClient }) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={setOpen}>Voltar</Button>
+          <Button onClick={()=>handleModalDelete("")}>Voltar</Button>
           <Button onClick={handleDelete} autoFocus color="error">
             Deletar
           </Button>

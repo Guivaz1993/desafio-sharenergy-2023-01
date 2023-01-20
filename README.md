@@ -1,92 +1,92 @@
-# Desafio para o processo seletivo SHARENERGY 2023/01
+<h1 align="center"> :file_cabinet: Sharenergy </h1>
 
-Repositório destinado aos interessados em participar do processo seletivo da SHARENERGY 2023/01. As vagas são voltadas para desenvolvimento de aplicações Web e Mobile.
+## :memo: Descrição
 
-## Sobre a SHARENERGY
+Esse projeto foi criado como parte do processo seletivo da Sharenergy, consistia de uma aplicação fullstack onde o backend é uma API desenvolvida com Nest.js e consumindo um banco de dados não relacional em MongoDB e o frontend é uma plataforma em React.JS, utilizando Material.UI e consumindo tanto a API desenvolvida como outras externas.
 
-No ramo da produção de energia fotovoltaica, há a modalidade de produção compartilhada. Nessa modalidade, diferentes pessoas investem na construção de uma mesma usina fotovoltaica e dividem o retorno finaceiro referente à energia gerada pela usina.
+O link do repositório é: https://github.com/Guivaz1993/desafio-sharenergy-2023-01 na Branch guilherme-de-sousa-vaz
 
-Acreditamos que as energias renováveis terão um lugar dominante em nossa economia pelo resto de nossas vidas. Trabalhamos no sentido de ampliar o impacto positivo que as energias renováveis podem ter no meio ambiente e nas nossas vidas. O sucesso da SHARENERGY é resultado de nossa equipe apaixonada, juntamente com nosso compromisso de oferecer a melhor solução.
+:video_camera: Youtube: https://youtu.be/dJ44m5SFP3Y
 
-Sabemos que negócios enfrentam desafios únicos e por isso oferecemos soluções turnkey, customizadas, economicamente viáveis e seguras.
+:bookmark_tabs: Documentação: https://documenter.getpostman.com/view/20510257/2s8ZDYWMNk
 
-A Startup figura entre as top 10 EnergyTechs do ranking 100 Open Startups desde 2018. Prova de que a inovação está enraizada em nossa cultura. Somos uma startup em estágio de crescimento e você trabalhará diretamente com os fundadores, ajudando a definir a visão, o produto e a experiência do usuário.
+## :books: Funcionalidades
 
-<p align="left">
-  <a href="https://www.linkedin.com/company/sharenergy-brasil/">
-    <img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn Button">
-  </a>
-  <a href="https://sharenergy.com.br/">
-    <img src="https://img.shields.io/badge/-Website-red" alt="Sharenergy Website Button">
-  </a>
-</p>
+### :desktop_computer: Backend
 
-## Sobre a vaga
+#### :unlock: Rotas não autenticadas
 
-Já pensou em potencializar o setor que mais cresce na galáxia e trabalhar com uma solução que utiliza tecnologia web de ponta, altamente distribuída com foco em performance e disponibilidade? 👀
+- <b>Login</b>: Validação de usuário para entrar na plataforma
 
-Os desenvolvedores da Sharenergy são responsáveis por criar e manter aplicações para clientes internos e externos, prover soluções escaláveis, resilientes e altamente disponíveis que sustentem picos de acesso além de atuar como referência técnica e tutores de outros desenvolvedores.
+- <b>Criar usuário</b>: Criação de um novo usuário (não implementado no fronted)
 
-Procuramos por pessoas dinâmicas e que queiram estar aprendendo sempre. Nossa equipe é jovem, motivada e estamos sempre em busca de soluções criativas para alcançar os resultados que nossos clientes esperam. Se você tem esse perfil, é autoconfiante, autodidata e tem facilidade para lidar com desafios diários, essa vaga é para você!
+#### :lock: Rotas autenticadas
 
-# O Desafio
+- <b>Infos</b>: Busca o nome e o Id do usuário logado
 
-Construir uma aplicação web (frontend e backend) capaz de realizar a comunicação com APIs distintas, além de um CRUD.
+##### :smile:	Clientes
 
-## Aplicação
+- <b>Listagem</b>: Lista todos os clientes cadastrados
 
-- A página inicial da aplicação deve ser uma `Login Page`;
-- O usuário deve ser capaz de se autenticar utilizando o username `desafiosharenergy` e password `sh@r3n3rgy`, também, deve existir a possibilidade do usuário utilizar o `remember me` para realizar logins automáticos, sem a necessidade de digitar username e password após o primeiro acesso;
-- Após o Login, a página principal deve conter uma listagem de usuários gerada a partir da api [Random User Generator](https://randomuser.me/), a lista deve conter a foto do usuário, nome completo, email, username e idade. Além disso, os requests devem ser páginados, porém, é de critério do participante do desafio a quantidade de resultados a serem exibidos por página e variações para o mesmo. Também, deve haver uma search para buscar usuários por nome, email ou username;
-- Em uma segunda página, o usuário deve ser capaz de selecionar um status code http qualquer, e, após a seleção, deve ser retornada uma imagem da api [HTTP Cat](https://http.cat/) relacionada ao status escolhido, caso não exista tal imagem, deve ser retornada uma imagem de not found à critério de escolha do participante do desafio;
-- Em uma terceira página, deve haver um botão de refresh que, ao ser clicado, deve retornar uma imagem aleatória da api [Random Dog](https://random.dog/);
-- Em uma quarta página, deve haver uma lista de clientes, através da qual o usuário deve ser capaz de cadastrar novos clientes, visualizar informações de um cliente específico, atualizar um cliente e deletar clientes. O cadastro deve possuir nome, email, telefone, endereço e cpf.
+- <b>Detalhamento</b>: Busca as informações de um cliente em específico
 
-### Requisitos da aplicação e de código
+- <b>Criar cliente</b>: Cria um novo cliente
 
-- Interface amigável, bonita e limpa
-- Responsividade
-- Clean Code
+- <b>Editar</b>: Editar informações do cliente
 
-### Ferramentas e Stack a ser utilizado
+- <b>Delete</b>: Deletar cliente
 
-- ReactJS para o frontend
-- NodeJS (com ou sem frameworks) ou Golang para o backend
+### :tv: Frontend
+
+- <b>Login</b>: Possibilidade de logar na página e opção de lembrar do usuário logado.
+
+- <b>Home</b>: Consumo da API de usuários, possibilidade de filtar e listagem em uma tabela paginada.
+
+- <b>Cats</b>: Consumo da API que busca memes exemplificando as respostas das requisições HTTP.
+
+- <b>Dogs</b>: Busca fotos e Gif's de cachorros através do consumo de uma API com fotos.
+
+- <b>Clients</b>: Consumo da API produzida no backend, mostra a lista dos clientes cadastrados e possibilita a criação de novos, editar os existentes, detalhamento ou deletar algum já cadastrado.
+
+
+## :wrench: Tecnologias utilizadas
+
+### :desktop_computer: Backend
+
+- Typescript
+- Node.js
+- Nest.js
+- Jest.js
 - MongoDB
-- TypeScript
-- HTML e CSS
 
-### Aprimoramentos adicionais da aplicação (opcional)
+### :tv: Frontend
 
-A aplicação criada para o desafio pode ser aprimorada com recursos pensados por você. A seguir, foram listadas algumas sugestões do que poderia ser feito:
+- React.JS
+- Material UI (Componentes previamente criados)
+- React-Router-Dom (Navegação entre as páginas)
 
-- Testes
-- Documentação
+## :rocket: Rodando o projeto
 
-### Mas, afinal, quais ferramentas a Sharenergy utiliza?
+Para rodar o repositório é necessário clonar o mesmo e instalar os arquivos de cada pasta (back, frontend)
 
-* [Javascript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript) e [Typescript](https://www.typescriptlang.org/)
-* Front-end: [ReactJS](https://reactjs.org/) e [React Native](https://reactnative.dev/)
-* Back-end: [Node.js](https://nodejs.org/en/), [NestJS](https://nestjs.com/) e [Go](https://golang.org/)
-* Banco de dados: [MongoDB](https://www.mongodb.com/) do lado do servidor e [Minimongo](https://guide.meteor.com/collections.html) do lado do cliente (cache)
-* Gerenciamento de Containers: [Docker](https://www.docker.com/)
-* Gerenciamento de Repositórios: [NX](https://nx.dev/)
-* UI: [Tailwind CSS](https://tailwindcss.com/) e [Material-UI V4](https://v4.mui.com/)
-* Sistema Operacional (principal): [Linux](https://www.linux.org/), também sendo possível utilizar o [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) (WSL)
+```
+<linha de comando>
 
-## O que devo entregar?
+cd ./back
 
-Esperamos de você duas entregas: o código no GitHub e um vídeo explicativo no YouTube.
+npm run start
+yarn run start
 
-### Instruções
+cd ./frontend
 
-- Faça um fork desse repositório.
-- Em seguida, crie uma branch, cujo nome é o seu nome completo, no seguinte formato: meu-nome-completo.
-- Resolva o desafio realizando versionamento local e remoto. Fique à vontade em criar outras branches durante o desenvolvimento do código.
-- Inclua no README.md uma breve instrução de instalação e de execução da aplicação criada.
-- Faça um vídeo que explique o que você fez no desafio, com duração aproximada de 5 minutos. A facecam é opcional, mas bem-vinda. O vídeo deve ser postado no YouTube (pode deixar como não listado) e seu link deve ser colocado no README.md.
-- Ao finalizar o desafio, faça um pull request de sua branch para esse repositório.
+npm run start
+yarn run start
+```
 
-### Prazo limite de entrega
+## :handshake: Colaboradores
 
-O pull request com sua solução do desafio deve ser feito até a data especificada no corpo do email que você recebeu com a descrição do desafio.
+Guilherme Vaz
+
+## :dart: Status do projeto
+
+Finalizado
